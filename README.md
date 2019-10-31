@@ -12,7 +12,7 @@ A Tripwire check compares the current filesystem state against a known baseline 
 
 When an expected change occurs, such as upgrading a package, the baseline database can be updated to the new known-good state.  The policy can also be updated, for example to reduce noise or cover a newly installed package.
 
-## Quick Start
+## Wenhui Quick Start
 
 ```
 git clone https://github.com/Tripwire/tripwire-open-source.git
