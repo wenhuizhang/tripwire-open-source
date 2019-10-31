@@ -2,15 +2,30 @@
 
 Open Source Tripwire<sup>®</sup> is a security and data integrity tool for monitoring and alerting on file & directory changes. This project is based on code originally contributed by [Tripwire, Inc.](http://www.tripwire.com) in 2000.
 
+
+***This one is for DAC policy check, NO MAC.***
+
+
+
 ## Overview
 A Tripwire check compares the current filesystem state against a known baseline state, and alerts on any changes it detects.  The baseline and check behavior are controlled by a policy file, which specifies which files or directories to monitor, and which attributes to monitor on them, such as hashes, file permissions, and ownership.
 
 When an expected change occurs, such as upgrading a package, the baseline database can be updated to the new known-good state.  The policy can also be updated, for example to reduce noise or cover a newly installed package.
 
-## Getting Started
+## Quick Start
 
-This section covers manual setup of Open Source Tripwire.  If installing via an RPM or Debian package, or via **make install**, a setup script will walk the user through the initial setup steps (key generation thru policy creation) and these will not need to be done by hand.
-
+```
+git clone https://github.com/Tripwire/tripwire-open-source.git
+cd tripwire-open-source/
+sudo apt-get install aclocal-1.15
+sudo apt-get install autoconf 
+autoreconf -f -i
+./configure --prefix=/opt/tripwire
+make
+sudo make install 
+sudo /opt/tripwire/sbin/tripwire --init 
+sudo /opt/tripwire/sbin/tripwire --check --interactive 
+```
 ### Generating Keys
 The first step is to generate site and local key files.  This is necessary because Tripwire policy, configuration, and database files are signed by default, and report files may also be signed.  The site key is used to sign config and policy files, while databases and reports are signed with the local key.  The idea here is that multiple machines can share a site key, but each will have its own local key.  The policy and config files can then be created once and distributed across these machines.
 
@@ -151,9 +166,6 @@ To run the acceptance tests manually, cd to the src/test-harness directory and r
 
 The ```make install``` target installs OST to the configured location, and ```make install-strip``` installs and removes symbols from the Tripwire binaries.  A ```make dist``` creates a gzipped source bundle.
 
-## Authors
-
-* [Tripwire, Inc.](http://www.tripwire.com)
 
 
 ## License
